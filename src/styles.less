@@ -1,0 +1,47 @@
+@import './styles/_mixins.less';
+@import './shared/styles/configurations.less';
+
+@import './styles/index.less';
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f7f7f7;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.main-container {
+  padding: 0px 30px;
+
+  @media @tablet {
+      padding: 15px 50px;
+  }
+}
+
+// global styles
+
+.media {
+  background-color: @color-white;
+  padding: 15px 30px;
+  margin: 30px 0;
+  border: 1px solid @border-color;
+
+  .media-header {
+    color: @primarycolor;
+    border-bottom: 2px solid @border-color;
+    margin-top: 0;
+  }
+}
+
+.main-header {
+  color: @primarycolor;
+  text-align: center;
+}
