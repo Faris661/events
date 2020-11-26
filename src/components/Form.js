@@ -15,6 +15,7 @@ import { addEvent,
 import { useHistory } from "react-router-dom";
 import emailValidator from '../shared/email-validator';
 import requiredValidator from '../shared/required-validator';
+import EventObject from '../shared/eventObject';
 
 
 function Form() {
@@ -56,6 +57,7 @@ function Form() {
             time: '',
             coordinator_id: '',
             coordinator_email: '',
+            event_fee: ''
           },
           form_submitted: false
         }
@@ -83,6 +85,10 @@ function Form() {
         setErrorField('coordinator_id', requiredValidator(form['coordinator']['id']));
         setErrorField('coordinator_email', emailValidator(form['coordinator']['email']));
         break;
+      case 'event_fee':
+        if(form.paid_event) {
+          setErrorField('event_fee', requiredValidator(form['event_fee']));
+        }
       default: 
         break;
     }
@@ -125,9 +131,10 @@ function Form() {
   }
 
   const onFormValid = () => {
-    console.log(form)
+    let eventItem = new EventObject(form);
+    console.log(eventItem);
       
-    dispatch(addEvent(form));
+    dispatch(addEvent(eventItem));
     setFormSubmitted();
     setTimeout(() => {
       dispatch(clearForm());

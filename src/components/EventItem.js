@@ -18,7 +18,8 @@ const EventItem = (props) => {
 
     const getCoordinator = (id) => {
         let user = coordinator.find((user) => user.id === id);
-        return (user.name + ' ' + user.lastname) || '';
+        
+        return user ? (user.name + ' ' + user.lastname) : '';
     }
 
     return (

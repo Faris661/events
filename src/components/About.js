@@ -10,6 +10,9 @@ const About = () => {
     const categoriesList = useSelector(state => state.data.categories);
     const titleError = useSelector(state => state.form.formErrors && state.form.formErrors.title);
     const descriptionError = useSelector(state => state.form.formErrors && state.form.formErrors.description);
+    const feeError = useSelector(state => state.form.formErrors && state.form.formErrors.event_fee);
+    const isPaidEvent = useSelector(state => state.form.paid_event);
+    const eventFee =  useSelector(state => state.form.event_fee);
 
     const getCategoriesOptions = () => {
         if (!categoriesList) return;
@@ -26,12 +29,14 @@ const About = () => {
         e.preventDefault();
         const { name, value } = e.target;
 
-        dispatch(updateForm(name, value));
         switch (name) {
             case 'title':
+            case 'description':
+                dispatch(updateForm(name, value));
                 dispatch(setError(name, requiredValidator(value)));
                 break;
-            case 'description':
+            case 'event_fee':
+                dispatch(updateForm(name, value ? Number.parseInt(value, 10) : ''));
                 dispatch(setError(name, requiredValidator(value)));
                 break;
             default:
@@ -108,6 +113,29 @@ const About = () => {
 
                 </div>
             </div>
+
+            {/* Event fee */}
+            {
+                isPaidEvent
+                ? (<div className="form-group">
+                    <div className="form-label">Event fee*</div>
+                    <div className="form-input">
+                        <div className={"form-input " + (feeError ? 'error' : '')}>
+                            <input type="number"
+                                min="0"
+                                placeholder="Number"
+                                onChange={handleChange}
+                                value={eventFee}
+                                name="event_fee" />
+                                <span className="error-message">{feeError}</span>
+                            <span className="text-muted">fee</span>
+                        </div>
+                    </div>
+                </div>)
+                : null
+            }
+
+
             {/* Reward */}
             <div className="form-group">
                 <div className="form-label">Reward</div>
